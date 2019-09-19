@@ -1,0 +1,110 @@
+
+public class Assignment_1 {
+
+	public static String decToTwoBin (int value) {
+		
+		int decimalValue = Math.abs(value);
+		int decimal = Math.abs(value);
+		String TwoBin = "";
+		String msBit = "";
+		String zeros = "";
+		
+		while (decimalValue != 0) {
+			decimalValue = decimalValue / 2;
+			String bit = String.valueOf(decimal % 2);
+			TwoBin = bit + TwoBin;
+			decimal = decimalValue;
+		}
+		
+		if (TwoBin.length() > 8) {
+			return "Cannot be expressed with 8 binary digits";
+		}
+		
+		if(TwoBin.length() != 8) {
+			int zeroCount = 7 - TwoBin.length();
+			for (int i = 0; i < zeroCount; i++) {
+				zeros = zeros + "0";
+			}
+		}
+		
+		if(value < 0){
+			System.out.println("negative");
+			
+			String TrueMag = zeros + TwoBin;
+			char[] ch = TrueMag.toCharArray();
+		
+			for (int i = 0; i < TrueMag.length(); i++) {
+				if (ch[i] == '0') {
+					ch[i] = '1';
+				}else {
+					ch[i] = '0';
+				}
+			}
+			//need to figure out the adding 1 to complemnt part 
+			return new String(ch);
+		}
+		
+		if(value >= 0) {
+			msBit = "0";
+			return msBit + zeros + TwoBin;
+		}
+
+		return msBit + TwoBin;
+		
+	}
+	
+	public static int bintoDec (String value) {
+		int decimal = 0;
+		char[] ch = value.toCharArray();
+		
+		for (int i = value.length()-1; i > 0; i--) {
+
+			if (ch[i] == '1') {
+				decimal = (int) (decimal + Math.pow(2, i));
+			}
+		}
+		return decimal;
+	
+	}
+	
+	public static String flipAdd (String value) {
+		char[] ch = value.toCharArray();
+		String newValue = "";
+	
+		for (int i = 0; i < value.length(); i++) {
+			if (ch[i] == '0') {
+				ch[i] = '1';
+			}else {
+				ch[i] = '0';
+			}
+		}
+		
+		for (int i = value.length() - 1; i >= 0; i--) {
+			boolean carryBit = false;
+			
+			if(ch[i] == '1') {
+				newValue = '0' + newValue;
+				carryBit = true;
+			}
+			else if(carryBit == true && ch[i] == '0') {
+				newValue = '1' + newValue;
+				carryBit = false;
+			}
+			
+			newValue = ch[i] + newValue;
+		}
+		System.out.println(newValue);
+		return new String(ch);
+	}
+	
+	public static void main(String[] args) {
+		//String it = decToTwoBin(127);
+		//bintoDec("00000000");
+
+		System.out.println(flipAdd("11100110"));
+		
+		
+		
+	}
+
+}
